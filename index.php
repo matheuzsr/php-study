@@ -1,19 +1,28 @@
 <?php
+$name = 'Matheus';
+$notas = [
+  'nota1' => 2,
+  'nota2' => 6,
+  'nota3' => 7,
+];
 
-try {
-  echo 'Current PHP version: ' . phpversion();
-  echo '<br />';
+$sumNotas = 0;
+foreach ($notas as $nota) {
+  $sumNotas = $nota + $sumNotas;
+};
 
-  $host = 'db';
-  $dbname = 'database';
-  $user = 'user';
-  $pass = 'pass';
-  $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8";
-  $conn = new PDO($dsn, $user, $pass);
+$media =  $sumNotas / 3;
 
-  echo 'Database connected successfully';
-  echo '<br />';
-} catch (\Throwable $t) {
-  echo 'Error: ' . $t->getMessage();
-  echo '<br />';
+if ($media <= 4) {
+  echo 'reprovado';
+}
+
+if (4 < $media && $media < 7) {
+  echo 'em prova final';
+
+}
+
+if ($media > 7) {
+  echo 'aprovado';
+
 }
