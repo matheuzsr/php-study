@@ -1,19 +1,42 @@
 <?php
 
-try {
-  echo 'Current PHP version: ' . phpversion();
-  echo '<br />';
+function getCells(): string {
+  $fahrenheit = 0;
+  $celsius = 0;
+  $cells = "";
 
-  $host = 'db';
-  $dbname = 'database';
-  $user = 'user';
-  $pass = 'pass';
-  $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8";
-  $conn = new PDO($dsn, $user, $pass);
+  while ($celsius < 60) {
+    // Fiz a alteração da formula dada no exercicio, pois o resultado não
+    // estava batento por conta da aproximação 
+    $celsius = ($fahrenheit - 32) /1.8;
 
-  echo 'Database connected successfully';
-  echo '<br />';
-} catch (\Throwable $t) {
-  echo 'Error: ' . $t->getMessage();
-  echo '<br />';
+    $formatedFahrenheit = round($fahrenheit, 2);
+    $formatedCelsius = round($celsius, 2);
+
+    $cells .= "
+      <tr>
+        <td>$formatedFahrenheit</td>
+        <td>$formatedCelsius</td>
+      </tr>
+    ";
+
+    $fahrenheit += 2;
+  }
+
+  return $cells;
 }
+
+function getTablePerson() {
+  $cells = getCells();
+  echo "
+    <table border='1'>
+      <tr style='text-align: center'>
+        <th>Fahrenheit</th>
+        <th>Celsius</th>
+      </tr>
+        $cells
+    </table>
+  ";
+}
+
+getTablePerson();
