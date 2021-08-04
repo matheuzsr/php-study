@@ -1,28 +1,40 @@
 <?php
-$name = 'Matheus';
-$notas = [
-  'nota1' => 2,
-  'nota2' => 6,
-  'nota3' => 7,
-];
 
-$sumNotas = 0;
-foreach ($notas as $nota) {
-  $sumNotas = $nota + $sumNotas;
-};
+function getCells(): string {
+  $depreciation = 4000;
+  $valueTotal = 28000;
+  $cells = "";
 
-$media =  $sumNotas / 3;
+  for ($i = 1; $i <= 7; $i++) {
+    $currentDepreciation = $i * $depreciation;
+    $valueDepreciated = $valueTotal - $currentDepreciation;
 
-if ($media <= 4) {
-  echo 'reprovado';
+    $cells .= "
+      <tr>
+        <td>$i</td>
+        <td>$depreciation</td>
+        <td>$valueDepreciated</td>
+        <td>$currentDepreciation</td>
+      </tr>
+    ";
+  }
+
+  return $cells;
 }
 
-if (4 < $media && $media < 7) {
-  echo 'em prova final';
-
+function getTablePerson() {
+  $cells = getCells();
+  echo "
+    <table border='1'>
+      <tr style='text-align: center'>
+        <th>Ano</th>
+        <th>Depreciação</th>
+        <th>Valor no fim do ano</th>
+        <th>Depreciação acomulada</th>
+      </tr>
+        $cells
+    </table>
+  ";
 }
 
-if ($media > 7) {
-  echo 'aprovado';
-
-}
+getTablePerson();
